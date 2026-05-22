@@ -1,6 +1,7 @@
 
 package modelo;
 
+import modelo.excepciones.EntradaNoDisponibleException;
 public class Entrada {
     private int numero;
     private String estado; 
@@ -10,6 +11,16 @@ public class Entrada {
         this.estado = estado;
     }
 
-    public Boolean vender(){return true;}
-    public Boolean liberar(){return true;}
+    public Boolean vender() throws EntradaNoDisponibleException{
+        if ("Vendida".equalsIgnoreCase(this.estado)) {
+            throw new EntradaNoDisponibleException("Operación denegada: La entrada numero " + numero + " ya esta vendida.");
+        }
+        this.estado = "Vendida";
+        return true;
+    }
+    
+    public Boolean liberar(){
+        this.estado = "Disponible";
+        return true;
+    }
 }

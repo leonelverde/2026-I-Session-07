@@ -1,7 +1,7 @@
 
 package modelo;
 
-import modelo.Persona;
+import modelo.excepciones.EntradaLimiteException;
 
 public class Usuario extends Persona{
     private Boolean estado;
@@ -12,5 +12,15 @@ public class Usuario extends Persona{
     }
     
     public void registrarZonas(){}
-    public Boolean comprar(){return true;}
+    
+    @Override
+    public Boolean comprar(int cantidad) throws EntradaLimiteException {
+        if (cantidad > 4) {
+            throw new EntradaLimiteException("Error en Usuario: Límite excedido. El maximo permitido es 4 entradas.");
+        }
+        if (cantidad <= 0) {
+            throw new EntradaLimiteException("Error en Usuario: Cantidad invalida.");
+        }
+        return true;
+    }
 }
